@@ -216,12 +216,14 @@ def scan_content(content: str, patterns: List[tuple]) -> List[tuple]:
 def scan_repo(repo_path: str, strict: bool = False, exclude: Optional[List[str]] = None) -> List[Finding]:
     """Scan a Git repository for secrets."""
     findings = []
-    patterns = SECRET_PATTERNS.copy()
+    patterns = list(SECRET_PATTERNS)
     
     if strict:
         patterns.extend(STRICT_PATTERNS)
     
-    exclude_patterns = exclude or []
+    exclude_patterns = list(exclude) if exclude else []
+    # Always exclude scanner's own file and common false-positive files
+    exclude_patterns.extend(["leaklock.py", ".gitignore"])
     
     commits = get_all_commits(repo_path)
     print(f"📊 Scanning {len(commits)} commits...")
