@@ -1,5 +1,12 @@
 # LeakLock
 
+[![Release](https://img.shields.io/github/v/release/hanyxd/leaklock?label=release&color=blue&style=flat-square)](https://github.com/hanyxd/leaklock/releases)
+[![Stars](https://img.shields.io/github/stars/hanyxd/leaklock?style=flat-square&color=gold&label=stars)](https://github.com/hanyxd/leaklock/stargazers)
+[![License](https://img.shields.io/github/license/hanyxd/leaklock?style=flat-square&color=green)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/leaklock?style=flat-square&color=red&label=PyPI)](https://pypi.org/project/leaklock/)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square)](https://www.python.org/)
+[![CI](https://github.com/hanyxd/leaklock/actions/workflows/ci.yml/badge.svg?branch=main&style=flat-square&label=CI)](https://github.com/hanyxd/leaklock/actions)
+
 > 🔐 **Scan any Git repo for secrets that were already pushed.**  
 > Find API keys, passwords, tokens, and private keys — even if they're buried in old commits.
 
@@ -54,8 +61,11 @@ git clone https://github.com/hanyxd/leaklock.git
 cd leaklock
 python3 leaklock.py --help
 
-# Or install globally
-pip install -e .
+# Or install globally via pip
+pip install leaklock
+
+# Via pipx (isolated)
+pipx install leaklock
 ```
 
 ---
