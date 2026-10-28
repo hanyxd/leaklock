@@ -7,6 +7,35 @@
 
 ---
 
+## Demo
+
+```
+$ python3 leaklock.py scan /tmp/demo-leaklock
+
+🔍 LeakLock — Secret Scanner
+========================================
+Target:    /tmp/demo-leaklock
+Patterns:  46 loaded
+
+📊 Scanning 2 commits...
+🚨 2 SECRETS FOUND
+
+🔴 CRITICAL (2):
+  • Stripe API Key
+    Commit:  bb40639  "Add config files with secrets"
+    File:    stripe.py
+    Line:    1
+    Match:   sk_liv...bc12[REDACTED]
+
+  • AWS Access Key ID
+    Commit:  255fd4e  "add config"
+    File:    config.py
+    Line:    1
+    Match:   AKIAIO...MPLE
+```
+
+---
+
 ## Why LeakLock?
 
 - **Catches historical leaks** — scans every commit, not just your working tree
