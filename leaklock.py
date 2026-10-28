@@ -123,6 +123,10 @@ SECRET_PATTERNS = [
     ("Environment File with Secrets", r"\.env(\.local|\.production|\.staging)?$", "low"),
 ]
 
+# Additional patterns
+from extra_patterns import EXTRA_PATTERNS
+ALL_PATTERNS = SECRET_PATTERNS + EXTRA_PATTERNS
+
 # Strict mode patterns (more aggressive, higher false positive rate)
 STRICT_PATTERNS = [
     ("Email Address", r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", "low"),
@@ -216,14 +220,16 @@ def scan_content(content: str, patterns: List[tuple]) -> List[tuple]:
 def scan_repo(repo_path: str, strict: bool = False, exclude: Optional[List[str]] = None) -> List[Finding]:
     """Scan a Git repository for secrets."""
     findings = []
-    patterns = list(SECRET_PATTERNS)
+    # Use combined patterns for full coverage
+    from extra_patterns import EXTRA_PATTERNS
+    patterns = list(SECRET_PATTERNS) + list(EXTRA_PATTERNS)
     
     if strict:
         patterns.extend(STRICT_PATTERNS)
     
     exclude_patterns = list(exclude) if exclude else []
     # Always exclude scanner's own file and common false-positive files
-    exclude_patterns.extend(["leaklock.py", ".gitignore"])
+    exclude_patterns.extend(["leaklock.py", "extra_patterns.py", ".gitignore"])
     
     commits = get_all_commits(repo_path)
     print(f"📊 Scanning {len(commits)} commits...")
@@ -349,7 +355,11 @@ Examples:
         print("🔍 LeakLock — Secret Scanner")
         print("=" * 40)
         print(f"Target:    {target}")
-        print(f"Patterns:  {len(SECRET_PATTERNS)} loaded")
+        from extra_patterns import EXTRA_PATTERNS as _ep
+        total = len(SECRET_PATTERNS) + len(_ep)
+        if args.strict:
+            total += len(STRICT_PATTERNS)
+        print(f"Patterns:  {total} loaded")
         if args.strict:
             print(f"Mode:      Strict (+{len(STRICT_PATTERNS)} patterns)")
         print()
