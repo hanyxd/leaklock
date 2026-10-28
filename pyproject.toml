@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leaklock"
+version = "1.0.0"
+description = "Scan Git repositories for leaked secrets in commit history"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Hany Elansari", email = "moop85514@gmail.com"}
+]
+keywords = ["security", "secrets", "git", "scanner", "leak", "api-key", "password"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov"]
+
+[project.scripts]
+leaklock = "leaklock:main"
+
+[project.urls]
+Homepage = "https://github.com/hanyxd/leaklock"
+Repository = "https://github.com/hanyxd/leaklock.git"
+Issues = "https://github.com/hanyxd/leaklock/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
